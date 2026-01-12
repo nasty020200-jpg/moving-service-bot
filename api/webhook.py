@@ -212,7 +212,10 @@ def contacts(message):
 def handle_message(message):
     user_id = message.from_user.id
     
-    if user_id not in user_states:
+    # Проверяем есть ли состояние И данные пользователя
+    if user_id not in user_states or user_id not in user_data:
+        # Если нет обоих, показываем главное меню
+        bot.send_message(message.chat.id, "Пожалуйста, выберите услугу из меню ниже:", reply_markup=get_main_keyboard())
         return
     
     state = user_states[user_id]
